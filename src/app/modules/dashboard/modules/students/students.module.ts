@@ -7,12 +7,14 @@ import { StudentsTableComponent } from './components/students-table/students-tab
 
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { StudentsFormComponent } from './components/students-form/students-form.component';
 
 
 @NgModule({
   declarations: [
     StudentsComponent,
-    StudentsTableComponent
+    StudentsTableComponent,
+    StudentsFormComponent
   ],
   imports: [
     CommonModule,
