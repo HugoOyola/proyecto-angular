@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 export interface Students {
   id: number;
@@ -272,5 +275,11 @@ export const ELEMENT_DATA: Students[] = [
 })
 export class StudentsTableComponent {
   displayedColumns: string[] = ['id', 'nombre', 'email', 'telefono', 'estado'];
-  dataSource = ELEMENT_DATA;
+  dataSource = new MatTableDataSource<Students>(ELEMENT_DATA);
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 }
