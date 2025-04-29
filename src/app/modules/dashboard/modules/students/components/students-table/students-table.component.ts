@@ -1,7 +1,6 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
 
 export interface Students {
   id: number;
@@ -281,5 +280,10 @@ export class StudentsTableComponent {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  addStudent(student: Students): void {
+    const updatedData = [...this.dataSource.data, student];
+    this.dataSource.data = updatedData;
   }
 }
