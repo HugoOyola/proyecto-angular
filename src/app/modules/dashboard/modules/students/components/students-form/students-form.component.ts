@@ -37,7 +37,7 @@ export class StudentsFormComponent {
       const formValue = this.studentForm.value;
 
       const newStudent: Students = {
-        id: Math.floor(Math.random() * 10000), // puedes cambiarlo por el método de id que prefieras
+        id: Math.floor(Math.random() * 10000), // Genera un ID aleatorio
         enrolledCourses: [],
         ...formValue
       };
