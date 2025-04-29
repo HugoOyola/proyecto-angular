@@ -277,7 +277,7 @@ export const ELEMENT_DATA: Students[] = [
 })
 
 export class StudentsTableComponent {
-  displayedColumns: string[] = ['id', 'nombre', 'email', 'telefono', 'estado', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombreCompleto', 'email', 'telefono', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<Students>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -312,7 +312,6 @@ export class StudentsTableComponent {
       }
     });
   }
-
 
   deleteStudent(student: Students): void {
     const confirmDelete = confirm(`¿Seguro que deseas eliminar a ${student.nombre} ${student.apellidos}?`);
