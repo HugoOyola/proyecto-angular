@@ -1,34 +1,47 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <!-- Id Column -->
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>No.</th>
-    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-  </ng-container>
+<div class="card-body p-0">
+  <div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" class="table table-hover align-middle mb-0">
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="text-center text-secondary">#</th>
+        <td mat-cell *matCellDef="let element" class="text-center fw-bold">{{ element.id }}</td>
+      </ng-container>
 
-  <!-- Nombre Column -->
-  <ng-container matColumnDef="nombre">
-    <th mat-header-cell *matHeaderCellDef>Nombre</th>
-    <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
-  </ng-container>
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef class="text-secondary">Nombre</th>
+        <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+      </ng-container>
 
-  <!-- Email Column -->
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let element">{{ element.email }}</td>ß
-  </ng-container>
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="text-secondary">Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
 
-  <!-- Teléfono Column -->
-  <ng-container matColumnDef="telefono">
-    <th mat-header-cell *matHeaderCellDef>Teléfono</th>
-    <td mat-cell *matCellDef="let element">{{ element.telefono }}</td>
-  </ng-container>
+      <!-- Teléfono Column -->
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef class="text-secondary">Teléfono</th>
+        <td mat-cell *matCellDef="let element">{{ element.telefono }}</td>
+      </ng-container>
 
-  <!-- Estado Column -->
-  <ng-container matColumnDef="estado">
-    <th mat-header-cell *matHeaderCellDef>Estado</th>
-    <td mat-cell *matCellDef="let element">{{ element.estado }}</td>
-  </ng-container>
+      <!-- Estado Column -->
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef class="text-center text-secondary">Estado</th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          <span [class]="'badge rounded-pill ' + (element.estado === 'Activo' ? 'bg-success' : 'bg-danger')">
+            {{ element.estado }}
+          </span>
+        </td>
+      </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+      <!-- Filas -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-light"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="border-bottom"></tr>
+    </table>
+  </div>
+</div>
+
+<div class="card-footer bg-white py-3 border-0">
+  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+</div>

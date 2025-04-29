@@ -6,6 +6,7 @@ import { StudentsComponent } from './students.component';
 import { StudentsTableComponent } from './components/students-table/students-table.component';
 
 import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -16,10 +17,12 @@ import {MatTableModule} from '@angular/material/table';
   imports: [
     CommonModule,
     StudentsRoutingModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
   exports: [
-    StudentsComponent
+    StudentsComponent,
+
   ],
 })
 export class StudentModule { }

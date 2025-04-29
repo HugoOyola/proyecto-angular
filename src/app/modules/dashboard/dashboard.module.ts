@@ -11,11 +11,13 @@ import {MatIconModule} from '@angular/material/icon';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import {MatListModule} from '@angular/material/list';
 import { StudentModule } from "./modules/students/students.module";
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    ToolbarComponent
   ],
   imports: [
     CommonModule,
