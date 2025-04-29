@@ -1,6 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { StudentsFormComponent } from '../students-form/students-form.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface Students {
   id: number;
@@ -272,11 +275,14 @@ export const ELEMENT_DATA: Students[] = [
   templateUrl: './students-table.component.html',
   styles: ``,
 })
+
 export class StudentsTableComponent {
-  displayedColumns: string[] = ['id', 'nombre', 'email', 'telefono', 'estado'];
+  displayedColumns: string[] = ['id', 'nombre', 'email', 'telefono', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<Students>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -285,5 +291,44 @@ export class StudentsTableComponent {
   addStudent(student: Students): void {
     const updatedData = [...this.dataSource.data, student];
     this.dataSource.data = updatedData;
+    this.showSuccessToast('Alumno agregado exitosamente.');
   }
+
+  editStudent(student: Students): void {
+    const dialogRef = this.dialog.open(StudentsFormComponent, {
+      width: '600px',
+      data: student,
+    });
+
+    dialogRef.afterClosed().subscribe((result: Students | undefined) => {
+      if (result) {
+        const index = this.dataSource.data.findIndex(s => s.id === result.id);
+        if (index !== -1) {
+          const updatedData = [...this.dataSource.data];
+          updatedData[index] = result;
+          this.dataSource.data = updatedData;
+          this.showSuccessToast('Alumno actualizado exitosamente.');
+        }
+      }
+    });
+  }
+
+
+  deleteStudent(student: Students): void {
+    const confirmDelete = confirm(`¿Seguro que deseas eliminar a ${student.nombre} ${student.apellidos}?`);
+    if (confirmDelete) {
+      this.dataSource.data = this.dataSource.data.filter(s => s.id !== student.id);
+      this.showSuccessToast('Alumno eliminado exitosamente.');
+    }
+  }
+
+  private showSuccessToast(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['success-snackbar'],
+    });
+  }
+
 }

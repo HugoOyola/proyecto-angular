@@ -11,6 +11,7 @@ import { Students } from '../students-table/students-table.component'; // Asegú
 })
 export class StudentsFormComponent {
   studentForm: FormGroup;
+  isEditing = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,9 +27,9 @@ export class StudentsFormComponent {
       estado: ['Activo', Validators.required],
     });
 
-    // Si recibe datos (editar alumno), los carga en el formulario
     if (data) {
       this.studentForm.patchValue(data);
+      this.isEditing = true; // <-- Sabemos que estamos editando
     }
   }
 
@@ -37,8 +38,8 @@ export class StudentsFormComponent {
       const formValue = this.studentForm.value;
 
       const newStudent: Students = {
-        id: Math.floor(Math.random() * 10000), // Genera un ID aleatorio
-        enrolledCourses: [],
+        id: this.data ? this.data.id : Math.floor(Math.random() * 10000), // ⚡️ MANTENER ID SI ESTAMOS EDITANDO
+        enrolledCourses: this.data ? this.data.enrolledCourses : [],
         ...formValue
       };
 
